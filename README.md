@@ -56,8 +56,8 @@ flutter run -t lib/builds/dev.dart
   - depends on: [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
   - Notes: While this is inspired by redux, there are a few fundamental differences: 
     - First, the database is an equal citizen to things like shared_preferences or http requests, instead of receiving special, priority treatment.
-    - Second, all of the dispatched events are capable of returning an *actual result* instead of being a void callback. 
-    - Third, every event can handle its own errors and can even timeout if you want it to.
+    - Second, all of the dispatched events are capable of returning an [*actual result*](https://github.com/gadfly361/flutter_services_example/blob/9ec35ecf78b1226ba89799ad8db7589be7d725e3/lib/pages/posts/overview/body_wrapper.dart#L42) instead of being a void callback. 
+    - Third, every event can handle its own [errors](https://github.com/gadfly361/flutter_services_example/blob/5471a668a14f64b02b5eeedaeaacb16c5113462c/lib/pages/posts/overview/body_wrapper.dart#L60) and can even [timeout](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L48) if you want it to.
 - **Navigation**
   - relevant code: [navigator service](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service.dart), [navigator dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service_event_dispatcher.dart)
 - **Route transitions**
