@@ -57,26 +57,23 @@ class PostsDetailPage_BodyWrapperState
     final AppDb appDb = GetIt.I<AppDb>();
     final Post activePost = appDb.postsState.post;
 
-    await services.handleAsyncEventResult<http.Response>(
-      result: await services.dispatchAsyncEvent(
-        event: Get_Http_Event(
-          url:
-              'https://jsonplaceholder.typicode.com/posts/${activePost.id}/comments',
-        ),
+    http.Response result = await services.dispatchAsyncEvent<http.Response>(
+      event: Get_Http_Event(
+        url:
+            'https://jsonplaceholder.typicode.com/posts/${activePost.id}/comments',
       ),
-      onOk: (http.Response result) async {
-        Iterable<dynamic> jsonList = jsonDecode(result.body);
-
-        List<Comment> comments = List<Comment>.from(jsonList.map(
-          (dynamic i) => Comment.fromJson(i),
-        ));
-
-        final Post updatedPost = activePost.copyWithComments(comments);
-
-        await services.dispatchAsyncEvent(
-            event: SetPost_Posts_Db_Event(post: updatedPost));
-      },
     );
+
+    Iterable<dynamic> jsonList = jsonDecode(result.body);
+
+    List<Comment> comments = List<Comment>.from(jsonList.map(
+      (dynamic i) => Comment.fromJson(i),
+    ));
+
+    final Post updatedPost = activePost.copyWithComments(comments);
+
+    await services.dispatchAsyncEvent(
+        event: SetPost_Posts_Db_Event(post: updatedPost));
   }
 
   void clearPost() async {

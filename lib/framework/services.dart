@@ -8,7 +8,7 @@ import 'event.dart';
 class Services {
   /// The events are pumped through a [StreamController] that we will
   /// refer to as en [_eventStream]. We can listen to this event stream
-  /// and handle any incoming event with a callback, the [_eventHandler].
+  /// and handle any incoming event with a callback, the [_eventProcessor].
   StreamController<Event> _eventStream;
   final EventProcessor _eventProcessor;
 
@@ -33,9 +33,11 @@ class Services {
     }
   }
 
-  Future<AsyncEventResult<R>> dispatchAsyncEvent<R>({
+  Future<R> dispatchAsyncEvent<R>({
     @required Event event,
     Duration timeout,
+    AsyncCallback onTimeout,
+    AsyncValueSetter<Object> onError,
   }) async {
     event.completer = Completer<AsyncEventResult<R>>();
     _eventStream.add(event);
@@ -70,15 +72,20 @@ class Services {
       );
     }
 
-    return result;
+    return await _handleAsyncEventResult<R>(
+      result: result,
+      onError: onError,
+      onTimeout: onTimeout,
+    );
   }
 
-  Future<void> handleAsyncEventResult<R>({
+  Future<R> _handleAsyncEventResult<R>({
     @required AsyncEventResult<R> result,
-    @required AsyncValueSetter<R> onOk,
-    AsyncValueSetter<Object> onError,
-    AsyncCallback onTimeout,
+    @required AsyncValueSetter<Object> onError,
+    @required AsyncCallback onTimeout,
   }) async {
+    R _result;
+
     /// If there is no result, assume there was an error, and call on onError callback
     if (result == null) {
       await onError(null);
@@ -86,7 +93,7 @@ class Services {
       switch (result.status) {
         case AsyncEventResultStatus.ok:
           {
-            await onOk(result.result);
+            _result = result.result;
           }
           break;
         case AsyncEventResultStatus.error:
@@ -105,5 +112,6 @@ class Services {
           break;
       }
     }
+    return _result;
   }
 }

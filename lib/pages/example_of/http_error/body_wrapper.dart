@@ -39,15 +39,10 @@ class ExampleOfHttpErrorPage_BodyWrapperState
   void didPush() async {
     final Services services = GetIt.I<Services>();
 
-    await services.handleAsyncEventResult<http.Response>(
-      result: await services.dispatchAsyncEvent(
-        event: Get_Http_Event(
-          url: 'this is a bad url and will throw an error',
-        ),
+    await services.dispatchAsyncEvent<http.Response>(
+      event: Get_Http_Event(
+        url: 'this is a bad url and will throw an error',
       ),
-      onOk: (http.Response response) async {
-        print('this won\'t get executed because there is an error.');
-      },
       onError: (Object error) async {
         await services.dispatchAsyncEvent(
           event: ShowSnackBar_Scaffold_Event(

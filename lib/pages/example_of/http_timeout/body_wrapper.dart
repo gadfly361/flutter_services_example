@@ -39,26 +39,19 @@ class ExampleOfHttpTimeoutPage_BodyWrapperState
   void didPush() async {
     final Services services = GetIt.I<Services>();
 
-    await services.handleAsyncEventResult<http.Response>(
-      result: await services.dispatchAsyncEvent(
-        event: Get_Http_Event(
-          url: 'http://google.com',
-        ),
-        timeout: Duration(milliseconds: 0),
-      ),
-      onOk: (http.Response response) async {
-        print(
-            'this won\'t get executed because we are setting the timout to 0 milliseconds');
-      },
+    await services.dispatchAsyncEvent<http.Response>(
+      event: Get_Http_Event(url: 'http://google.com'),
+      timeout: Duration(milliseconds: 0),
       onTimeout: () async {
         await services.dispatchAsyncEvent(
           event: ShowSnackBar_Scaffold_Event(
             scaffoldKey: ExampleOfHttpTimeoutPage_Scaffold.scaffoldKey,
             snackBar: SnackBar(
-                backgroundColor: Colors.orange,
-                content: Text(
-                  'Your http request has timed out!',
-                )),
+              backgroundColor: Colors.orange,
+              content: Text(
+                'Your http request has timed out!',
+              ),
+            ),
           ),
         );
       },

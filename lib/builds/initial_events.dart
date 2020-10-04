@@ -7,15 +7,11 @@ import 'package:fse/services/shared_preferences/events/get_string_list.dart';
 Future<void> dispatchInitialEvents() async {
   final Services services = GetIt.I<Services>();
 
-  await services.handleAsyncEventResult<List<String>>(
-    result: await services.dispatchAsyncEvent(
-      event: GetStringList_SharedPreferences_Event(
-          key: PostsState.favoritePostsById_SharedPreferencesKey),
-    ),
-    onOk: (List<String> stringList) async {
-      await services.dispatchAsyncEvent(
-          event: SetFavoritePostIdsFromStringList_Posts_Db_Event(
-              stringList: stringList));
-    },
+  List<String> stringList = await services.dispatchAsyncEvent<List<String>>(
+    event: GetStringList_SharedPreferences_Event(
+        key: PostsState.favoritePostsById_SharedPreferencesKey),
   );
+  await services.dispatchAsyncEvent<Set<int>>(
+      event: SetFavoritePostIdsFromStringList_Posts_Db_Event(
+          stringList: stringList));
 }

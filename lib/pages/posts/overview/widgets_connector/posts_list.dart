@@ -63,24 +63,23 @@ class Posts_List_Connector extends StatelessWidget {
                               false,
                       onFavoriteTapAsync: () async {
                         Services services = GetIt.I<Services>();
-                        await services.handleAsyncEventResult<Set<int>>(
-                          result: await services.dispatchAsyncEvent(
-                            event: ToggleFavoritePostById_Posts_Db_Event(
-                                postId: post.id),
-                          ),
-                          onOk: (Set<int> favoritePostsById) async {
-                            List<String> _stringList = favoritePostsById
-                                .map((int id) => id.toString())
-                                .toList();
 
-                            await services.dispatchAsyncEvent(
-                              event: SetStringList_SharedPreferences_Event(
-                                key: PostsState
-                                    .favoritePostsById_SharedPreferencesKey,
-                                stringList: _stringList,
-                              ),
-                            );
-                          },
+                        Set<int> favoritePostsById =
+                            await services.dispatchAsyncEvent<Set<int>>(
+                          event: ToggleFavoritePostById_Posts_Db_Event(
+                              postId: post.id),
+                        );
+
+                        List<String> _stringList = favoritePostsById
+                            .map((int id) => id.toString())
+                            .toList();
+
+                        await services.dispatchAsyncEvent(
+                          event: SetStringList_SharedPreferences_Event(
+                            key: PostsState
+                                .favoritePostsById_SharedPreferencesKey,
+                            stringList: _stringList,
+                          ),
                         );
                       },
                       onCardTapAsync: () async {
