@@ -47,6 +47,8 @@ remotedev --port 8000
 flutter run -t lib/builds/dev.dart
 ```
 
+![remote devtools gif not found](remote_devtools.gif)
+
 ## What does this example cover?
 
 - Customer state-management called 'Services'
