@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fse/pages/posts/detail/scaffold.dart';
+import 'package:fse/services/scaffold/events/show_snack_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:fse/framework/services.dart';
@@ -58,11 +60,34 @@ class PostsDetailPage_BodyWrapperState
     final Post activePost = appDb.postsState.post;
 
     http.Response result = await services.dispatchAsyncEvent<http.Response>(
-      event: Get_Http_Event(
-        url:
-            'https://jsonplaceholder.typicode.com/posts/${activePost.id}/comments',
-      ),
-    );
+        event: Get_Http_Event(
+          url:
+              'https://jsonplaceholder.typicode.com/posts/${activePost.id}/comments',
+        ),
+        timeout: Duration(seconds: 5),
+        onTimeout: () async {
+          await services.dispatchAsyncEvent(
+            event: ShowSnackBar_Scaffold_Event(
+              scaffoldKey: PostsDetailPage_Scaffold.scaffoldKey,
+              snackBar: SnackBar(
+                backgroundColor: Colors.orange,
+                content: Text('Your request has timed out!'),
+              ),
+            ),
+          );
+        },
+        onError: (Object error) async {
+          await services.dispatchAsyncEvent(
+            event: ShowSnackBar_Scaffold_Event(
+              scaffoldKey: PostsDetailPage_Scaffold.scaffoldKey,
+              snackBar: SnackBar(
+                backgroundColor: Colors.red,
+                content:
+                    Text('Uh oh, there was an error: \n\n${error.toString()}'),
+              ),
+            ),
+          );
+        });
 
     Iterable<dynamic> jsonList = jsonDecode(result.body);
 

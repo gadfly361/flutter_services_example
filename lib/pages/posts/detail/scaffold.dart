@@ -3,6 +3,8 @@ import 'package:fse/pages/posts/detail/widgets_connector/title_text.dart';
 import 'body_wrapper.dart';
 
 class PostsDetailPage_Scaffold extends StatelessWidget {
+  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   final int index;
 
   PostsDetailPage_Scaffold({
@@ -15,6 +17,7 @@ class PostsDetailPage_Scaffold extends StatelessWidget {
       color: Colors.purple,
       child: SafeArea(
         child: Scaffold(
+          key: scaffoldKey,
           appBar: AppBar(
             title: Title_Text_Connector(),
             backgroundColor: Colors.purple,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fse/pages/posts/overview/scaffold.dart';
+import 'package:fse/services/scaffold/events/show_snack_bar.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:fse/framework/services.dart';
@@ -40,10 +42,34 @@ class PostsOverviewPage_BodyWrapperState
     Services services = GetIt.I<Services>();
 
     http.Response result = await services.dispatchAsyncEvent<http.Response>(
-      event: Get_Http_Event(
-        url: 'https://jsonplaceholder.typicode.com/posts',
-      ),
-    );
+        event: Get_Http_Event(
+          url: 'https://jsonplaceholder.typicode.com/posts',
+        ),
+        timeout: Duration(seconds: 5),
+        onTimeout: () async {
+          await services.dispatchAsyncEvent(
+            event: ShowSnackBar_Scaffold_Event(
+              scaffoldKey: PostsOverviewPage_Scaffold.scaffoldKey,
+              snackBar: SnackBar(
+                backgroundColor: Colors.orange,
+                content: Text('Your request has timed out!'),
+              ),
+            ),
+          );
+        },
+        onError: (Object error) async {
+          await services.dispatchAsyncEvent(
+            event: ShowSnackBar_Scaffold_Event(
+              scaffoldKey: PostsOverviewPage_Scaffold.scaffoldKey,
+              snackBar: SnackBar(
+                backgroundColor: Colors.red,
+                content:
+                    Text('Uh oh, there was an error: \n\n${error.toString()}'),
+              ),
+            ),
+          );
+        });
+
     List<Post> postsFullList = (json.decode(result.body) as List<dynamic>)
         .map((dynamic i) => Post.fromJson(i))
         .toList();
