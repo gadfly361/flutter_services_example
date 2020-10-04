@@ -22,9 +22,7 @@ EventHandler<Set<int>> setFavoritePostIdsFromStringList_Posts_Db_EventHandler =
         _event as SetFavoritePostIdsFromStringList_Posts_Db_Event;
 
     AppDb appDbOld = GetIt.I<AppDb>();
-    List<int> intList = event.stringList
-        .map((String intAsString) => int.parse(intAsString))
-        .toList();
+    List<int> intList = event.stringList?.map((String intAsString) => int.parse(intAsString))?.toList();
     Set<int> _favoritePostsById = Set<int>.from(intList ?? <int>{});
 
     AppDb appDbNew = appDbOld.copyWith(
