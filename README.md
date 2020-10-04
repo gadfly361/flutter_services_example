@@ -51,7 +51,7 @@ flutter run -t lib/builds/dev.dart
 
 ## What does this example cover?
 
-- Customer state-management called 'Services'
+- Custom state-management called 'Services'
   - relevant code: [services class](https://github.com/gadfly361/flutter_services_example/blob/master/lib/framework/services.dart), [services dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/services_event_dispatcher.dart) 
   - depends on: [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
   - Notes: While this is inspired by redux, there are a few fundamental differences: 
@@ -78,6 +78,14 @@ flutter run -t lib/builds/dev.dart
   - depends on: [shared_preferences](https://pub.dev/packages/shared_preferences)
 - Use of custom analysis options 
   - relevant code: [analysis options](https://github.com/gadfly361/flutter_services_example/blob/master/analysis_options.yaml)
+  - depends on: [pedantic](https://pub.dev/packages/pedantic)
 - Pull to refresh 
   - relevant code: [Pull to refresh widget](https://github.com/gadfly361/flutter_services_example/blob/bc4029944b1052bc9beb8633d9e46f6cc281b866/lib/pages/posts/overview/widgets_connector/posts_list.dart#L27), [pull to refresh event handler](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/pull_to_refresh/service_event_handler.dart)  
   - depends on [liquid_pull_to_refresh](https://pub.dev/packages/liquid_pull_to_refresh)
+- Json serialization
+  - relevant code: [AppDb](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/db/app_db.dart#L8)
+  - depends on: [json_annotation](https://pub.dev/packages/json_annotation), [json_serializable](https://pub.dev/packages/json_serializable)
+  - notes: This is needed for http requests as well as using flutter remote devtools
+- Remote dev tools
+  - relevant code: [connect remote dev tools](https://github.com/gadfly361/flutter_services_example/blob/ef7d47db5e62fa5dea3c0039ffd8799b51106dcf/lib/builds/dev.dart#L62)
+  - depends on: [redux_remote_devtools](https://pub.dev/packages/redux_remote_devtools) 
