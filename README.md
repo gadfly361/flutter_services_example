@@ -51,19 +51,19 @@ flutter run -t lib/builds/dev.dart
 
 - Customer state-management called 'Services'
   - relevant code: [services class](https://github.com/gadfly361/flutter_services_example/blob/master/lib/framework/services.dart), [services dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/services_event_dispatcher.dart) 
-  - depends on: [Provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
+  - depends on: [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
 - Navigation
   - relevant code: [navigator service](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service.dart), [navigator dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service_event_dispatcher.dart)
 - Route transitions
   - relevant code: [OpenContainer](https://github.com/gadfly361/flutter_services_example/blob/64d0e2ae7c28ee6f43d2c341d383cbb4b274437b/lib/pages/posts/overview/widgets_connector/posts_list.dart#L48), [no visible transition](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/route_transitions/no_visible_transition.dart) 
   - depends on: [animations](https://pub.dev/packages/animations)
 - Environment variables
-  - relevant code: [environment config yaml](https://github.com/gadfly361/flutter_services_example/blob/master/environment_config.yaml) and the generated `lib/environment_config.dart` file that is not version controlled
+  - relevant code: [environment_config.yaml](https://github.com/gadfly361/flutter_services_example/blob/master/environment_config.yaml) and the generated `lib/environment_config.dart` file that is not version controlled
   - depends on: [environment_config](https://pub.dev/packages/environment_config)
 - Different builds
   - relevant code: [Dev](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/dev.dart) and [Prod](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/prod.dart) builds
 - Tapping in to route transitions like didPop with `RouteAware`
-  - relevant code: [RouteAware mixin(https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L18-L19), [didPop](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/pages/posts/overview/body_wrapper.dart#L66), [appRouteObserver](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/app_root.dart#L62) 
+  - relevant code: [RouteAware mixin](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L18-L19), [didPop](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/pages/posts/overview/body_wrapper.dart#L66), [appRouteObserver](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/app_root.dart#L62) 
 - Custom fonts
   - relevant code: [Custom fonts](https://github.com/gadfly361/flutter_services_example/blob/master/lib/shared/styles/text_theme.dart)
   - depends on [google_fonts](https://pub.dev/packages/google_fonts)
