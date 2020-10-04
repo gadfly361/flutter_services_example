@@ -1,0 +1,10 @@
+environment_config:
+  fields:
+    remoteDevTools:
+      type: bool
+      default: "false"
+      env_var: "REMOTE_DEV_TOOLS"
+    logHttpBody:
+      type: bool
+      default: "false"
+      env_var: "LOG_HTTP_BODY"

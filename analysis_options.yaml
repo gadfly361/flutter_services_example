@@ -1,0 +1,11 @@
+include: package:pedantic/analysis_options.yaml
+analyzer:
+  errors:
+    todo: ignore
+  exclude:
+    - lib/**/*.g.dart
+linter:
+  rules:
+    non_constant_identifier_names: false
+    always_specify_types: true
+    omit_local_variable_types: false
