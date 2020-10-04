@@ -52,6 +52,10 @@ flutter run -t lib/builds/dev.dart
 - Customer state-management called 'Services'
   - relevant code: [services class](https://github.com/gadfly361/flutter_services_example/blob/master/lib/framework/services.dart), [services dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/services_event_dispatcher.dart) 
   - depends on: [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
+  - Notes: While this is inspired by redux, there are a few fundamental differences: 
+    - First, the database is an equal citizen to things like shared_preferences or http requests, instead of receiving special, priority treatment.
+    - Second, all of the dispatched events are capable of returning an *actual result* instead of being a void callback. 
+    - Third, every event can handle its own errors and can even timeout if you want it to.
 - Navigation
   - relevant code: [navigator service](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service.dart), [navigator dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service_event_dispatcher.dart)
 - Route transitions
