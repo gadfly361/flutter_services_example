@@ -56,12 +56,12 @@ flutter run -t lib/builds/dev.dart
   - depends on: [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
   - Notes: While this is inspired by redux, there are a few fundamental differences: 
     - First, the database is an equal citizen to things like shared_preferences or http requests, instead of receiving special, priority treatment.
-    - Second, all of the dispatched events are capable of returning an [*actual result*](https://github.com/gadfly361/flutter_services_example/blob/9ec35ecf78b1226ba89799ad8db7589be7d725e3/lib/pages/posts/overview/body_wrapper.dart#L42) instead of being a void callback. 
-    - Third, every event can handle its own [errors](https://github.com/gadfly361/flutter_services_example/blob/5471a668a14f64b02b5eeedaeaacb16c5113462c/lib/pages/posts/overview/body_wrapper.dart#L60) and can even [timeout](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L48) if you want it to.
+    - Second, all of the dispatched events are capable of returning an [*actual result*](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L44) instead of being a void callback. 
+    - Third, every event can handle its own [errors](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L60) and can even [timeout](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L48) if you want it to.
 - **Navigation**
   - relevant code: [navigator service](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service.dart), [navigator dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service_event_dispatcher.dart)
 - **Route transitions**
-  - relevant code: [OpenContainer](https://github.com/gadfly361/flutter_services_example/blob/64d0e2ae7c28ee6f43d2c341d383cbb4b274437b/lib/pages/posts/overview/widgets_connector/posts_list.dart#L48), [no visible transition](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/route_transitions/no_visible_transition.dart) 
+  - relevant code: [OpenContainer](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/widgets_connector/posts_list.dart#L48), [no visible transition](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/route_transitions/no_visible_transition.dart) 
   - depends on: [animations](https://pub.dev/packages/animations)
 - **Environment variables**
   - relevant code: [environment_config.yaml](https://github.com/gadfly361/flutter_services_example/blob/master/environment_config.yaml) and the generated `lib/environment_config.dart` file that is not version controlled
@@ -69,7 +69,7 @@ flutter run -t lib/builds/dev.dart
 - **Different builds**
   - relevant code: [Dev](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/dev.dart) and [Prod](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/prod.dart) builds
 - **Tapping in to route transitions like didPop with `RouteAware`**
-  - relevant code: [RouteAware mixin](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L18-L19), [didPop](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/pages/posts/overview/body_wrapper.dart#L66), [appRouteObserver](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/app_root.dart#L62) 
+  - relevant code: [RouteAware mixin](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L21), [didPop](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/pages/posts/overview/body_wrapper.dart#L66), [appRouteObserver](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/app_root.dart#L62) 
 - **Custom fonts**
   - relevant code: [Custom fonts](https://github.com/gadfly361/flutter_services_example/blob/master/lib/shared/styles/text_theme.dart)
   - depends on [google_fonts](https://pub.dev/packages/google_fonts)
@@ -80,12 +80,12 @@ flutter run -t lib/builds/dev.dart
   - relevant code: [analysis options](https://github.com/gadfly361/flutter_services_example/blob/master/analysis_options.yaml)
   - depends on: [pedantic](https://pub.dev/packages/pedantic)
 - **Pull to refresh** 
-  - relevant code: [Pull to refresh widget](https://github.com/gadfly361/flutter_services_example/blob/bc4029944b1052bc9beb8633d9e46f6cc281b866/lib/pages/posts/overview/widgets_connector/posts_list.dart#L27), [pull to refresh event handler](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/pull_to_refresh/service_event_handler.dart)  
+  - relevant code: [Pull to refresh widget](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/widgets_connector/posts_list.dart#L27), [pull to refresh event handler](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/pull_to_refresh/service_event_handler.dart)  
   - depends on [liquid_pull_to_refresh](https://pub.dev/packages/liquid_pull_to_refresh)
 - **Json serialization**
   - relevant code: [AppDb](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/db/app_db.dart#L8)
   - depends on: [json_annotation](https://pub.dev/packages/json_annotation), [json_serializable](https://pub.dev/packages/json_serializable)
   - notes: This is needed for http requests as well as using flutter remote devtools
 - **Remote dev tools**
-  - relevant code: [connect remote dev tools](https://github.com/gadfly361/flutter_services_example/blob/ef7d47db5e62fa5dea3c0039ffd8799b51106dcf/lib/builds/dev.dart#L62)
+  - relevant code: [connect remote dev tools](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/dev.dart#L62)
   - depends on: [redux_remote_devtools](https://pub.dev/packages/redux_remote_devtools) 

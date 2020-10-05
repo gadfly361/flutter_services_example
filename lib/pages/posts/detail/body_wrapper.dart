@@ -39,8 +39,8 @@ class PostsDetailPage_BodyWrapperState
     super.initState();
 
     /// We prefer to use [RouteAware]'s didPush, didPop, etc. whenever possible.
-    /// However, when since we are using [OpenContainer] from the animations package,
-    /// we aren't actually pushing a new route when we open this page, which means
+    /// However, we are using [OpenContainer] from the animations package. This means
+    /// we aren't actually pushing a new route when we open this page, which also means
     /// we can use RouteAware. So instead, we will settle for doing an http request here,
     /// in initState after the initial frame.
     WidgetsBinding.instance.addPostFrameCallback((_) async {

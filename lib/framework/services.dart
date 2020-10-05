@@ -60,7 +60,7 @@ class Services {
       );
     }
 
-    /// Try assigning to completer's value to `result`
+    /// Try assigning the completer's value to `result`
     /// If there is an error, then set the result status to error
     /// and forward the error object
     try {
@@ -86,7 +86,7 @@ class Services {
   }) async {
     R _result;
 
-    /// If there is no result, assume there was an error, and call on onError callback
+    /// If there is no result, assume there was an error, and call the onError callback
     if (result == null) {
       await onError(null);
     } else {
