@@ -711,6 +711,8 @@ List<dynamic> postsSuccessResponse = [
   }
 ];
 
+List<dynamic> postsSuccessResponse_empty = [];
+
 List<dynamic> postCommentsSuccessResponse = [
   {
     "postId": 1,

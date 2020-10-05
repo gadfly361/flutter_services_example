@@ -71,18 +71,20 @@ class PostsOverviewPage_BodyWrapperState
           );
         });
 
-    List<Post> postsFullList = (json.decode(result?.body) as List<dynamic>)
-        ?.map((dynamic i) => Post.fromJson(i))
-        ?.toList();
+    if (result != null) {
+      List<Post> postsFullList = (json.decode(result?.body) as List<dynamic>)
+          ?.map((dynamic i) => Post.fromJson(i))
+          ?.toList();
 
-    // Since this is a demo application, and we don't have real credentials,
-    // let's assume we are the user with userId 1, and filter the posts that
-    // belong to us.
-    List<Post> postsTruncatedList =
-        postsFullList?.where((Post post) => post.userId == 1)?.toList();
+      // Since this is a demo application, and we don't have real credentials,
+      // let's assume we are the user with userId 1, and filter the posts that
+      // belong to us.
+      List<Post> postsTruncatedList =
+          postsFullList?.where((Post post) => post.userId == 1)?.toList();
 
-    await services.dispatchAsyncEvent(
-        event: SetPosts_Posts_Db_Event(posts: postsTruncatedList));
+      await services.dispatchAsyncEvent(
+          event: SetPosts_Posts_Db_Event(posts: postsTruncatedList));
+    }
   }
 
   @override

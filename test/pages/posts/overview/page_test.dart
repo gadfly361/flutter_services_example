@@ -11,6 +11,7 @@ import 'package:fse/services/db/models/posts/events/set_post.dart';
 import 'package:fse/services/db/models/posts/events/set_posts.dart';
 import 'package:fse/services/http/events/get.dart';
 import 'package:fse/services/http/service.dart';
+import 'package:fse/services/scaffold/events/show_snack_bar.dart';
 import 'package:fse/services/shared_preferences/events/get_string_list.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
@@ -25,7 +26,7 @@ void main() {
   tearDown(AppFixture.tearDown);
 
   testWidgets(
-    '[Posts Overview] Page load',
+    '[Posts Overview -> Posts Detail] Success',
     (WidgetTester tester) async {
       await tester.runAsync(
         () async {
@@ -105,6 +106,103 @@ void main() {
           expect(find.byType(PostsOverviewPage_Scaffold), findsNothing);
           expect(find.byType(PostsOverviewPage_Scaffold, skipOffstage: false),
               findsOneWidget);
+        },
+      );
+    },
+  );
+
+  testWidgets(
+    '[Posts Overview -> Posts Detail] Zero posts',
+    (WidgetTester tester) async {
+      await tester.runAsync(
+        () async {
+          List<Event> serviceEventsRecorded = startRecordingServiceEvents();
+          await dispatchInitialEvents();
+
+          /// App starts up and lands on [PostsOverviewPage_Scaffold]
+          /// which makes an http request to json placeholder api
+          /// that we need to mock
+          when(
+            GetIt.I<HttpService>().httpClient.get(
+                  HttpService.jsonPlaceholderPostsUrl,
+                  headers: anyNamed('headers'),
+                ),
+          ).thenAnswer((_) async {
+            return http.Response(jsonEncode(postsSuccessResponse_empty), 200,
+                headers: defaultJsonHeaders);
+          });
+
+          await tester.pumpWidget(AppRoot());
+          await tester.pumpAndSettle();
+          await tester.pumpAndSettle();
+
+          /// Upon launch, shared_preferences is checked to see if there are any favorited posts,
+          /// sets them in our AppDb,
+          /// makes an http request to json placeholder api to get posts,
+          /// and then sets the posts in our AppDb
+          areServiceEventsInExpectedOrder(
+            serviceEventsExpected: <Type>[
+              GetStringList_SharedPreferences_Event,
+              SetFavoritePostIdsFromStringList_Posts_Db_Event,
+              Get_Http_Event,
+              SetPosts_Posts_Db_Event,
+            ],
+            serviceEventsRecorded: serviceEventsRecorded,
+          );
+
+          /// Expect to be on the PortfolioOverviewPage
+          /// with zero posts
+          expect(find.byType(PostsOverviewPage_Scaffold), findsOneWidget);
+          expect(find.byType(Post_Card_Dumb), findsNothing);
+          expect(find.byType(SnackBar), findsNothing);
+        },
+      );
+    },
+  );
+
+  testWidgets(
+    '[Posts Overview -> Posts Detail] Error when fetching posts',
+    (WidgetTester tester) async {
+      await tester.runAsync(
+        () async {
+          List<Event> serviceEventsRecorded = startRecordingServiceEvents();
+          await dispatchInitialEvents();
+
+          /// App starts up and lands on [PostsOverviewPage_Scaffold]
+          /// which makes an http request to json placeholder api
+          /// that we need to mock
+          when(
+            GetIt.I<HttpService>().httpClient.get(
+                  HttpService.jsonPlaceholderPostsUrl,
+                  headers: anyNamed('headers'),
+                ),
+          ).thenAnswer((_) async {
+            throw (Exception());
+          });
+
+          await tester.pumpWidget(AppRoot());
+          await tester.pumpAndSettle();
+          await tester.pumpAndSettle();
+
+          /// Upon launch, shared_preferences is checked to see if there are any favorited posts,
+          /// sets them in our AppDb,
+          /// makes an http request to json placeholder api to get posts,
+          /// and then sets the posts in our AppDb
+          areServiceEventsInExpectedOrder(
+            serviceEventsExpected: <Type>[
+              GetStringList_SharedPreferences_Event,
+              SetFavoritePostIdsFromStringList_Posts_Db_Event,
+              Get_Http_Event,
+              ShowSnackBar_Scaffold_Event,
+            ],
+            serviceEventsRecorded: serviceEventsRecorded,
+          );
+
+          /// Expect to be on the PortfolioOverviewPage
+          /// with zero posts
+          expect(find.byType(PostsOverviewPage_Scaffold), findsOneWidget);
+          expect(find.byType(Post_Card_Dumb), findsNothing);
+          expect(find.byType(SnackBar), findsOneWidget);
         },
       );
     },

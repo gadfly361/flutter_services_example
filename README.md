@@ -62,10 +62,10 @@ flutter test
   - depends on: [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it)
   - Notes: While this is inspired by redux, there are a few fundamental differences: 
     - First, the database is an equal citizen to things like shared_preferences or http requests, instead of receiving special, priority treatment.
-    - Second, all of the dispatched events are capable of returning an [*actual result*](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L44) instead of being a void callback. 
-    - Third, every event can handle its own [errors](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L60) and can even [timeout](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L48) if you want it to.
+    - Second, all of the dispatched events are capable of returning an [*actual result*](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L45) instead of being a void callback. 
+    - Third, every event can handle its own [errors](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L61) and can even [timeout](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L49) if you want it to.
 - **Tests that can track the order of dispatched events**
-  - relevant code: [areEventsInExpectedOrder](https://github.com/gadfly361/flutter_services_example/blob/master/test/pages/posts/overview/page_test.dart#L56-L64)
+  - relevant code: [areEventsInExpectedOrder](https://github.com/gadfly361/flutter_services_example/blob/master/test/pages/posts/overview/page_test.dart#L57-L65)
   - depends on: [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)
   - Notes: This is made possible because of the custom 'Services' state-management system.
 - **Navigation**
@@ -79,7 +79,7 @@ flutter test
 - **Different builds**
   - relevant code: [Dev](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/dev.dart) and [Prod](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/prod.dart) builds
 - **Tapping in to route transitions like didPop with `RouteAware`**
-  - relevant code: [RouteAware mixin](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L21), [didPop](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/pages/posts/overview/body_wrapper.dart#L66), [appRouteObserver](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/app_root.dart#L62) 
+  - relevant code: [RouteAware mixin](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L22), [didPop](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/pages/posts/overview/body_wrapper.dart#L66), [appRouteObserver](https://github.com/gadfly361/flutter_services_example/blob/e6a518cfe48bef951e6b5981a2cef298e6d028af/lib/app_root.dart#L62) 
 - **Custom fonts**
   - relevant code: [Custom fonts](https://github.com/gadfly361/flutter_services_example/blob/master/lib/shared/styles/text_theme.dart)
   - depends on [google_fonts](https://pub.dev/packages/google_fonts)
