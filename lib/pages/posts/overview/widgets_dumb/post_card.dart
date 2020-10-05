@@ -4,6 +4,8 @@ import 'package:fse/services/db/models/posts/supporting_models/post.dart';
 import 'package:fse/shared/styles/spacings.dart';
 
 class Post_Card_Dumb extends StatelessWidget {
+  static String keyPrefix = 'Post_Card_dumb';
+
   final Post post;
   final int index;
   final bool isFavorite;
@@ -21,13 +23,13 @@ class Post_Card_Dumb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      key: Key('$keyPrefix\_${post.id}'),
       children: <Widget>[
         GestureDetector(
           onTap: () async {
             await onCardTapAsync();
           },
           child: Column(
-            key: Key('$runtimeType ${post.id}'),
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(

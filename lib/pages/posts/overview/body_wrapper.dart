@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fse/pages/posts/overview/scaffold.dart';
+import 'package:fse/services/http/service.dart';
 import 'package:fse/services/scaffold/events/show_snack_bar.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -43,7 +44,7 @@ class PostsOverviewPage_BodyWrapperState
 
     http.Response result = await services.dispatchAsyncEvent<http.Response>(
         event: Get_Http_Event(
-          url: 'https://jsonplaceholder.typicode.com/posts',
+          url: HttpService.jsonPlaceholderPostsUrl,
         ),
         timeout: Duration(seconds: 5),
         onTimeout: () async {
@@ -70,15 +71,15 @@ class PostsOverviewPage_BodyWrapperState
           );
         });
 
-    List<Post> postsFullList = (json.decode(result.body) as List<dynamic>)
-        .map((dynamic i) => Post.fromJson(i))
-        .toList();
+    List<Post> postsFullList = (json.decode(result?.body) as List<dynamic>)
+        ?.map((dynamic i) => Post.fromJson(i))
+        ?.toList();
 
     // Since this is a demo application, and we don't have real credentials,
     // let's assume we are the user with userId 1, and filter the posts that
     // belong to us.
     List<Post> postsTruncatedList =
-        postsFullList.where((Post post) => post.userId == 1).toList();
+        postsFullList?.where((Post post) => post.userId == 1)?.toList();
 
     await services.dispatchAsyncEvent(
         event: SetPosts_Posts_Db_Event(posts: postsTruncatedList));

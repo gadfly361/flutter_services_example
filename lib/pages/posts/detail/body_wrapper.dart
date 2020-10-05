@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fse/pages/posts/detail/scaffold.dart';
+import 'package:fse/services/http/service.dart';
 import 'package:fse/services/scaffold/events/show_snack_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -61,8 +62,7 @@ class PostsDetailPage_BodyWrapperState
 
     http.Response result = await services.dispatchAsyncEvent<http.Response>(
         event: Get_Http_Event(
-          url:
-              'https://jsonplaceholder.typicode.com/posts/${activePost.id}/comments',
+          url: HttpService.jsonPlaceholderPostCommentsUrl(activePost.id),
         ),
         timeout: Duration(seconds: 5),
         onTimeout: () async {
