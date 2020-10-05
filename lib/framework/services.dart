@@ -7,7 +7,7 @@ import 'event.dart';
 
 class Services {
   /// The events are pumped through a [StreamController] that we will
-  /// refer to as en [_eventStream]. We can listen to this event stream
+  /// refer to as an [_eventStream]. We can listen to this event stream
   /// and handle any incoming event with a callback, the [_eventProcessor].
   StreamController<Event> _eventStream;
   final EventProcessor _eventProcessor;
