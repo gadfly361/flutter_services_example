@@ -99,6 +99,7 @@ flutter test
 - **Remote dev tools**
   - relevant code: [connect remote dev tools](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/dev.dart#L62)
   - depends on: [redux_remote_devtools](https://pub.dev/packages/redux_remote_devtools) 
+  - notes: Since remote devtools is made for redux on the web, the buttons at the bottom of the webpage do not and will not work with Flutter. For the purposed of using with Flutter, remote devtools is useful to explore the events that have been dispatched and the current state of AppDb.
 
 ## Prior Art
 
