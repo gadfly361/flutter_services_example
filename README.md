@@ -49,6 +49,12 @@ flutter run -t lib/builds/dev.dart
 
 ![remote devtools gif not found](remote_devtools.gif)
 
+### Run the tests
+
+```sh
+flutter test
+```
+
 ## What does this example cover?
 
 - **Custom state-management called 'Services'**
@@ -58,6 +64,10 @@ flutter run -t lib/builds/dev.dart
     - First, the database is an equal citizen to things like shared_preferences or http requests, instead of receiving special, priority treatment.
     - Second, all of the dispatched events are capable of returning an [*actual result*](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L44) instead of being a void callback. 
     - Third, every event can handle its own [errors](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L60) and can even [timeout](https://github.com/gadfly361/flutter_services_example/blob/master/lib/pages/posts/overview/body_wrapper.dart#L48) if you want it to.
+- **Tests that can track the order of dispatched events**
+  - relevant code: [areEventsInExpectedOrder](https://github.com/gadfly361/flutter_services_example/blob/master/test/pages/posts/overview/page_test.dart#L56-L64)
+  - depends on: [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)
+  - Notes: This is made possible because of the custom 'Services' state-management system.
 - **Navigation**
   - relevant code: [navigator service](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service.dart), [navigator dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service_event_dispatcher.dart)
 - **Route transitions**
@@ -89,3 +99,10 @@ flutter run -t lib/builds/dev.dart
 - **Remote dev tools**
   - relevant code: [connect remote dev tools](https://github.com/gadfly361/flutter_services_example/blob/master/lib/builds/dev.dart#L62)
   - depends on: [redux_remote_devtools](https://pub.dev/packages/redux_remote_devtools) 
+
+## Prior Art
+
+Inspirations were taken from the following projects:
+
+- [async_redux](https://pub.dev/packages/async_redux)
+- [re-frame](https://github.com/Day8/re-frame)
