@@ -68,6 +68,9 @@ flutter test
   - relevant code: [areEventsInExpectedOrder](https://github.com/gadfly361/flutter_services_example/blob/master/test/pages/posts/overview/page_test.dart#L57-L65)
   - depends on: [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)
   - Notes: This is made possible because of the custom 'Services' state-management system.
+- **Mocked http requests in tests**
+  - relevant code: [mocked http request](https://github.com/gadfly361/flutter_services_example/blob/master/test/pages/posts/overview/page_test.dart#L39)
+  - depends on: [mockito](https://pub.dev/packages/mockito)
 - **Navigation**
   - relevant code: [navigator service](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service.dart), [navigator dispatcher](https://github.com/gadfly361/flutter_services_example/blob/master/lib/services/navigator/service_event_dispatcher.dart)
 - **Route transitions**
