@@ -20,7 +20,7 @@ typedef EventHandlerCallback<R> = Future<R> Function(Event event);
 /// Concrete implementations of [EventProcessor]s include:
 ///
 /// 1) [EventDispatcher] is used to pipe an event forward
-/// and still gives the opportunity to add before and ever callbacks at that level.
+/// and still gives the opportunity to add before and after callbacks at that level.
 /// EventDispatcher's can be chained N times.
 ///
 /// 2) [EventHandler] is used as the final step in the chain. The thing that

@@ -13,8 +13,8 @@ List<Event> startRecordingServiceEvents() {
 }
 
 void areServiceEventsInExpectedOrder({
-  @required List<Type> serviceEventsExpected,
   @required List<Event> serviceEventsRecorded,
+  @required List<Type> serviceEventsExpected,
 }) {
   bool _asExpected = false;
   try {
@@ -33,17 +33,22 @@ void areServiceEventsInExpectedOrder({
     _asExpected = false;
   }
   if (!_asExpected) {
-    print('\nEvents are not as expected:');
+    print('\nEvents expected are not as recorded:');
     print(
         '  serviceEventsExpected length: ${serviceEventsExpected?.length.toString()}');
     print(
         '  serviceEventsRecorded length: ${serviceEventsRecorded?.length.toString()}');
+    print('\nserviceEventsExpected vs serviceEventsRecorded:');
     try {
       int idx = 0;
       serviceEventsExpected.forEach((Type _event) {
         print(
-            '    ${_event.toString()} == ${serviceEventsRecorded[idx].runtimeType}');
+            '  ${_event.toString()} == ${serviceEventsRecorded[idx].runtimeType}');
         idx++;
+      });
+      print('\nserviceEventsRecorded:');
+      serviceEventsRecorded.forEach((Event e) {
+        print('  ${e.runtimeType.toString()}');
       });
     } catch (_) {}
   }
